@@ -3,12 +3,15 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return HttpResponse("home")
+    context = {}
+    return render(request, 'blog/home.html', context)
 
 
 def blog(request):
-    return HttpResponse("Blog")
+    context = {}
+    return render(request, 'blog/blog.html', context)
 
 
 def post(request):
-    return HttpResponse("Post")
+    context = {}
+    return render(request, 'blog/post.html', context)
