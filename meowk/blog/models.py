@@ -11,14 +11,24 @@ class Blogger(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     CATEGORY = (
         ('Tech', 'Tech'),
         ('Social', 'Social')
     )
+
+    blogger = models.ForeignKey(Blogger, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200, null=True)
     body = models.CharField(max_length=200, null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
+    tags = models.ManyToManyField(Tag)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
