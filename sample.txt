@@ -1,0 +1,21 @@
+  <!-- <div class="col-md-4">
+      
+        <h5>Search</h5>
+        <hr>
+        <div class="card card-body">
+            <form method="POST", enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" name="search-text">
+                <input class="btn btn-sm btn-primary type="submit" name="search" value="Search">
+            </form>
+        </div>
+
+        <br>
+        <div class="search-tags">
+        <!-- <div class="card card-body"></div> -->
+            <a class="btn btn-info" href="#">Python</a>
+            <a class="btn btn-info" href="#">Python</a>
+            <a class="btn btn-info" href="#">Python</a>
+        <!-- </div> -->
+        </div>
+  </div>

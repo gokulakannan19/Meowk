@@ -4,6 +4,6 @@ from .import views
 
 urlpatterns = [
     path('', views.home, name="home"),
-    path('blog/', views.blog, name="blog"),
-    path('post/', views.post, name="post"),
+    # path('blog/', views.blog, name="blog"),
+    path('post/<str:pk>', views.post, name="post"),
 ]
