@@ -1,107 +1,22 @@
 {% extends 'blog/main.html' %} {% block content %}
 {% load static %}
 <br />
-<div class="row">
-  <div class="col">
-    <img src="{% static 'images/river.jpg' %}" alt="" class="banner-img">
-  </div>
-</div>
-<hr>
-<div class="blog-container">
-<div class="row">
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">
-          With supporting text below as a natural lead-in to additional content.
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">
-          With supporting text below as a natural lead-in to additional content.
-        </p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-      
-        <h5>Search</h5>
-        <hr>
-        <div class="card card-body">
-            <form method="POST", enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="text" name="search-text">
-                <input class="btn btn-sm btn-primary type="submit" name="search" value="Search">
-            </form>
-        </div>
 
-        <br>
-        <div class="search-tags">
-        <!-- <div class="card card-body"></div> -->
-            <a class="btn btn-info" href="#">Python</a>
-            <a class="btn btn-info" href="#">Python</a>
-            <a class="btn btn-info" href="#">Python</a>
-        <!-- </div> -->
-        </div>
-  </div>
-</div>
-<br>
+{% for post in posts %}
 <div class="row">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
+  <div class="col-md-8">
+  <div class="card">
+    <h5 class="card-header">{{post.blogger}}</h5>
+    <div class="card-body">
+      <h5 class="card-title">{{post.title}}</h5>
+      <p>{{post.date_created}}</p>
+      <p class="card-text">{{post.body}}</p>
+      <a href="{% url 'post' post.id %}" class="btn btn-primary">Read blog</a>
     </div>
   </div>
-  <br>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">
-            With supporting text below as a natural lead-in to additional content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
   </div>
-</div>
+  </div>
+  <hr>  
+{% endfor %}
+  
 {% endblock content %}
