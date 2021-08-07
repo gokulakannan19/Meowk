@@ -2,10 +2,14 @@
 {% load static %}
 
 {% block content %}
+{% include 'blog/navbar.html' %}
 <div class="container">
+  <div class="container-fluid">
+    <div class="post-page">
   <div class="post-title">
     <h3>{{post.title}}</h3>
   </div>
+  <hr>
   <div class="post-body">
     <p>{{post.body}}</p>
   </div>
@@ -14,18 +18,8 @@
     <span class="author">{{post.blogger}}</span>
   </div>
 </div>
-<div class="card text-center">
-    <div class="card-header">
-      {{post.blogger}}
-    </div>
-    <div class="card-body">
-      <h5 class="card-title text-left">{{post.title}}</h5>
-      <p class="card-text" style="text-align: justify;">{{post.body}}</p>
-      
-    </div>
-    <div class="card-footer text-muted">
-      2 days ago
-    </div>
-  </div>
+</div>
+</div>
+
 {% endblock content %}
     
