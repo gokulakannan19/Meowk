@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
@@ -8,12 +8,12 @@ from .models import Post
 
 class PostForm(ModelForm):
 
-    body = forms.CharField(widget=forms.Textarea(
-        attrs={"rows": 5, "cols": 100}))
-
     class Meta:
         model = Post
         fields = '__all__'
+        widgets = {
+            'content': Textarea(attrs={'cols': 80, 'rows': 20}),
+        }
 
 
 class CreateUserForm(UserCreationForm):
