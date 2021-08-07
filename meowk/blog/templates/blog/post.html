@@ -11,7 +11,8 @@
   </div>
   <hr>
   <div class="post-body">
-    <p>{{post.body}}</p>
+    {{ post.body|linebreaks }}
+
   </div>
   <div class="post-info">
     <span class="author">{{post.blogger}}</span>
