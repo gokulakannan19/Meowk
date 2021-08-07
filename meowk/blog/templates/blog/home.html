@@ -1,22 +1,26 @@
-{% extends 'blog/main.html' %} {% block content %}
+{% extends 'blog/main.html' %} 
 {% load static %}
+{% block content %}
+{% include 'blog/navbar.html' %}
+<div class="container">
 <br />
-
 {% for post in posts %}
 <div class="row">
   <div class="col-md-8">
   <div class="card">
-    <h5 class="card-header">{{post.blogger}}</h5>
+    <!-- <h5 class="card-header">{{post.blogger}}</h5> -->
     <div class="card-body">
       <h5 class="card-title">{{post.title}}</h5>
-      <p>{{post.date_created}}</p>
-      <p class="card-text">{{post.body}}</p>
+      <p class="card-text">{{post.body|truncatewords:25}}</p>
+      <h6>Published on: {{post.date_created}}</h6>
       <a href="{% url 'post' post.id %}" class="btn btn-primary">Read blog</a>
+      
     </div>
   </div>
   </div>
   </div>
   <hr>  
+
 {% endfor %}
-  
+</div>  
 {% endblock content %}

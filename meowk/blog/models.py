@@ -26,7 +26,7 @@ class Post(models.Model):
 
     blogger = models.ForeignKey(Blogger, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200, null=True)
-    body = models.CharField(max_length=200, null=True)
+    body = models.CharField(max_length=100000000000, null=True)
     category = models.CharField(max_length=200, null=True, choices=CATEGORY)
     tags = models.ManyToManyField(Tag)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
