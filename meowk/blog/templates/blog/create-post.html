@@ -5,11 +5,45 @@
 
 {% block content %}
     <br>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{form.as_p}}
-        <input type="submit" name='create-post'>
-    </form>
-    
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <h5 class="create-page-title">Create your post</h5>
+                    <hr>
+                    <div class="card card-body">
+                        <form method="POST" action="">
+                            {% csrf_token %}
+                            <table class="table">
+                                <tr>
+                                    <th>{{form.blogger.label}}</th>
+                                    <th>{{form.blogger}}</th>
+                                </tr>
+                                <tr>
+                                    <th>{{form.title.label}}</th>
+                                    <th>{{form.title}}</th>
+                                </tr>
+                                <tr>
+                                    <th>{{form.category.label}}</th>
+                                    <th>{{form.category}}</th>
+                                </tr>
+                                <tr>
+                                    <th>{{form.body.label}}</th>
+                                    <th>{{form.body}}</th>
+                                </tr>
+                                <tr>
+                                    <th>{{form.tags.label}}</th>
+                                    <th>{{form.tags}}</th>
+                                </tr>
+                            </table>
+                            
+                            <input type="submit" name="Create post">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock content %}
     

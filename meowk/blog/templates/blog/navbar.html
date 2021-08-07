@@ -10,10 +10,28 @@
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
         </ul>  
-        <form class="d-flex">
+        
+        {% if request.user.is_authenticated %}
+          <div class="d-flex">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+            <p class="nav-user">Hi {{request.user}} </p></li>&nbsp;
+            <li class="nav-item"><a class="btn btn-sm btn-warning" id="nav-button" href="{% url 'create-post' %}">Create Your Blog</a></li>&nbsp;
+            <li class="nav-item"><a class="btn btn-sm btn-danger" id="nav-button"  href="{% url 'logout-user' %}">Logout</a></li>
+          </ul>
+          </div>
+        {% endif %}
+        
+        {% if not request.user.is_authenticated %}
+        <div class="d-flex">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+          <li class="nav-item"><a class="btn btn-sm btn-warning" id="nav-button" href="{% url 'login-user' %}">Login</a></li>&nbsp;
+        </ul>
+        </div>  
+        {% endif %}
           
-          <a href="{% url 'logout-user' %}">Logout</a>
-        </form>
+        
       </div>
     </div>
   </nav>
