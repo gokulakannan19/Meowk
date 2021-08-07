@@ -1,7 +1,14 @@
+/* Home page styling starts here */
+
 body {
   background-color: darkslategrey;
 }
 
+/* Home page styling ends here */
+
+/* -------------------------------------------------------------------------------------*/
+
+/* post page url starts here */
 .post-page {
   background-color: azure !important;
   margin-left: 25px;
@@ -22,4 +29,30 @@ body {
   font-size: 15pt;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   line-height: 30px;
+}
+
+/* Post page url ends here */
+/*---------------------------------------------------------------------------------------*/
+
+/* Navbar styling starts here */
+/* .nav-button {
+  padding: 5px;
+  margin: 2px;
+} */
+
+.nav-user {
+  color: white !important;
+}
+
+/* navbar styling ends here */
+/* ---------------------------------------------------------------------------------- */
+
+/* create-blog page styling starts here*/
+.create-page-title {
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  text-transform: uppercase;
+  text-shadow: blanchedalmond;
+  font-size: 30px;
 }

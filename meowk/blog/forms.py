@@ -8,6 +8,9 @@ from .models import Post
 
 class PostForm(ModelForm):
 
+    body = forms.CharField(widget=forms.Textarea(
+        attrs={"rows": 5, "cols": 100}))
+
     class Meta:
         model = Post
         fields = '__all__'
