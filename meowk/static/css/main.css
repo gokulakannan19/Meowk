@@ -56,3 +56,21 @@ body {
   text-shadow: blanchedalmond;
   font-size: 30px;
 }
+
+.update-page-title {
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  text-transform: uppercase;
+  text-shadow: blanchedalmond;
+  font-size: 30px;
+}
+
+.delete-page-title {
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+  text-transform: uppercase;
+  text-shadow: blanchedalmond;
+  font-size: 30px;
+}

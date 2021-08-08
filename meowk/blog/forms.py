@@ -11,6 +11,7 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = '__all__'
+        exclude = ['blogger']
         widgets = {
             'content': Textarea(attrs={'cols': 80, 'rows': 20}),
         }
