@@ -14,11 +14,25 @@
         {% if request.user.is_authenticated %}
           <div class="d-flex">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-            <p class="nav-user">Hi {{request.user}} </p></li>&nbsp;
-            <li class="nav-item"><a class="btn btn-sm btn-warning" id="nav-button" href="{% url 'create-post' %}">Create Your Blog</a></li>&nbsp;
-            <li class="nav-item"><a class="btn btn-sm btn-danger" id="nav-button"  href="{% url 'logout-user' %}">Logout</a></li>
-          </ul>
+             
+              <li class="nav-item" style="padding: 4px;"><a class="btn btn-warning" href="{% url 'create-post' request.user.blogger.id %}">Upload Post</a></li>&nbsp;
+              &nbsp;
+            </ul>
+              <div class="btn-sm btn-group dropstart">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  GK
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item active" href="#">Account Settings</a></li>
+                  <li><a class="dropdown-item" href="{% url 'manage-post' request.user.blogger.id %}">Manage Post</a></li>
+    
+    
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="{% url 'logout-user' %}">Logout</a></li>
+
+                </ul>
+              </div>
+            
           </div>
         {% endif %}
         

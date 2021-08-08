@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import inlineformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -55,6 +56,15 @@ def logout_user(request):
     return redirect('login-user')
 
 
+def manage_post(request, pk):
+    blogger = Blogger.objects.get(id=pk)
+    posts = blogger.post_set.all()
+    context = {
+        'posts': posts
+    }
+    return render(request, 'blog/manage-post.html', context)
+
+
 def home(request):
     posts = Post.objects.all().order_by('date_created',)[::-1]
     context = {
@@ -71,16 +81,19 @@ def post(request, pk):
     return render(request, 'blog/post.html', context)
 
 
-def create_post(request):
-
-    form = PostForm()
+def create_post(request, pk):
+    PostFormSet = inlineformset_factory(
+        Blogger, Post, fields=('title', 'body', 'category', 'tags'), extra=1)
+    blogger = Blogger.objects.get(id=pk)
+    formset = PostFormSet(queryset=Post.objects.none(), instance=blogger)
+    # form = PostForm(initial={'blogger': blogger})
     if request. method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
+        formset = PostFormSet(request.POST, instance=blogger)
+        if formset.is_valid():
+            formset.save()
             return redirect('home')
     context = {
-        'form': form
+        'formset': formset
     }
     return render(request, 'blog/create-post.html', context)
 
