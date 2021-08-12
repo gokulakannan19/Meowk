@@ -5,9 +5,10 @@ from django.forms import inlineformset_factory
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.models import Group
 
 from .models import Post, Blogger
-from .forms import PostForm, CreateUserForm
+from .forms import PostForm, CreateUserForm, BloggerForm
 
 
 def register_user(request):
@@ -20,8 +21,13 @@ def register_user(request):
             form = CreateUserForm(request.POST)
 
             if form.is_valid():
-                form.save()
+                user = form.save()
                 username = form.cleaned_data.get('usernmae')
+
+                group = Group.objects.get(name="blogger")
+                user.groups.add(group)
+                Blogger.objects.create(user=user)
+
                 messages.success(request, "Account was successfully created")
                 return redirect('login-user')
 
@@ -64,6 +70,23 @@ def manage_post(request, pk):
         'posts': posts
     }
     return render(request, 'blog/manage-post.html', context)
+
+
+def account_settings(request):
+
+    blogger = request.user.blogger
+
+    form = BloggerForm(instance=blogger)
+
+    if request.method == "POST":
+        form = BloggerForm(request.POST, instance=blogger)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/account-settings.html', context)
 
 
 def home(request):
