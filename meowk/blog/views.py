@@ -24,9 +24,9 @@ def register_user(request):
                 user = form.save()
                 username = form.cleaned_data.get('usernmae')
 
-                group = Group.objects.get(name="blogger")
-                user.groups.add(group)
-                Blogger.objects.create(user=user, name=user.username)
+                # group = Group.objects.get(name="blogger")
+                # user.groups.add(group)
+                # Blogger.objects.create(user=user, name=user.username)
 
                 messages.success(request, "Account was successfully created")
                 return redirect('login-user')
