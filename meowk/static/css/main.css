@@ -5,7 +5,13 @@ body {
 }
 
 /* Home page styling ends here */
-
+.blogger-name {
+  padding: 5px;
+  color: red;
+  margin-top: 1px;
+  margin-left: 1px;
+  margin-bottom: -2px;
+}
 /* -------------------------------------------------------------------------------------*/
 
 /* post page url starts here */
