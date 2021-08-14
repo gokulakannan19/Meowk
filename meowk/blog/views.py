@@ -6,55 +6,56 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
+
 
 from .models import Post, Blogger
 from .forms import PostForm, CreateUserForm, BloggerForm
+from .decorators import unauthenticated_user, allowed_users
 
 
+@unauthenticated_user
 def register_user(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form = CreateUserForm()
 
-        if request.method == "POST":
-            form = CreateUserForm(request.POST)
+    form = CreateUserForm()
 
-            if form.is_valid():
-                user = form.save()
-                username = form.cleaned_data.get('usernmae')
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
 
-                # group = Group.objects.get(name="blogger")
-                # user.groups.add(group)
-                # Blogger.objects.create(user=user, name=user.username)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('usernmae')
 
-                messages.success(request, "Account was successfully created")
-                return redirect('login-user')
+            # group = Group.objects.get(name="blogger")
+            # user.groups.add(group)
+            # Blogger.objects.create(user=user, name=user.username)
 
-        context = {
-            'form': form
-        }
-        return render(request, 'blog/register.html', context)
+            messages.success(request, "Account was successfully created")
+            return redirect('login-user')
+
+    context = {
+        'form': form
+    }
+    return render(request, 'blog/register.html', context)
 
 
+@unauthenticated_user
 def login_user(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == "POST":
-            username = request.POST.get('username')
-            password = request.POST.get('password')
 
-            user = authenticate(request, username=username, password=password)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.info(request, "Username or password is incorrect")
+        user = authenticate(request, username=username, password=password)
 
-        context = {}
-        return render(request, 'blog/login.html', context)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, "Username or password is incorrect")
+
+    context = {}
+    return render(request, 'blog/login.html', context)
 
 
 @login_required(login_url='login-user')
@@ -63,6 +64,7 @@ def logout_user(request):
     return redirect('login-user')
 
 
+@login_required(login_url='login-user')
 def manage_post(request, pk):
     blogger = Blogger.objects.get(id=pk)
     posts = blogger.post_set.all()
@@ -72,6 +74,7 @@ def manage_post(request, pk):
     return render(request, 'blog/manage-post.html', context)
 
 
+@login_required(login_url='login-user')
 def account_settings(request):
 
     blogger = request.user.blogger
@@ -105,6 +108,7 @@ def post(request, pk):
     return render(request, 'blog/post.html', context)
 
 
+@login_required(login_url='login-user')
 def create_post(request, pk):
     PostFormSet = inlineformset_factory(
         Blogger, Post, fields=('title', 'body', 'category', 'tags'), extra=1)
@@ -122,6 +126,7 @@ def create_post(request, pk):
     return render(request, 'blog/create-post.html', context)
 
 
+@login_required(login_url='login-user')
 def update_post(request, pk):
     post = Post.objects.get(id=pk)
     form = PostForm(instance=post)
@@ -137,6 +142,7 @@ def update_post(request, pk):
     return render(request, 'blog/update-post.html', context)
 
 
+@login_required(login_url='login-user')
 def delete_post(request, pk):
     post = Post.objects.get(id=pk)
     if request.method == "POST":
